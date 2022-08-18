@@ -1,0 +1,94 @@
+{
+  "G_kwargs": {
+    "class_name": "training.networks_stylegan2.Generator",
+    "z_dim": 512,
+    "w_dim": 512,
+    "mapping_kwargs": {
+      "num_layers": 8
+    },
+    "channel_base": 32768,
+    "channel_max": 512,
+    "fused_modconv_default": "inference_only"
+  },
+  "D_kwargs": {
+    "class_name": "training.networks_stylegan2.Discriminator",
+    "block_kwargs": {
+      "freeze_layers": 0
+    },
+    "mapping_kwargs": {},
+    "epilogue_kwargs": {
+      "mbstd_group_size": 4
+    },
+    "channel_base": 32768,
+    "channel_max": 512
+  },
+  "G_opt_kwargs": {
+    "class_name": "torch.optim.Adam",
+    "betas": [
+      0,
+      0.99
+    ],
+    "eps": 1e-08,
+    "lr": 0.002
+  },
+  "D_opt_kwargs": {
+    "class_name": "torch.optim.Adam",
+    "betas": [
+      0,
+      0.99
+    ],
+    "eps": 1e-08,
+    "lr": 0.002
+  },
+  "loss_kwargs": {
+    "class_name": "training.loss.StyleGAN2Loss",
+    "r1_gamma": 8.0,
+    "style_mixing_prob": 0.9,
+    "pl_weight": 2,
+    "pl_no_weight_grad": true
+  },
+  "data_loader_kwargs": {
+    "pin_memory": true,
+    "prefetch_factor": 2,
+    "num_workers": 3
+  },
+  "training_set_kwargs": {
+    "class_name": "training.dataset.ImageFolderDataset",
+    "path": "/home/nitpreet/Desktop/stylegan3/training_images/00000",
+    "use_labels": false,
+    "max_size": 961,
+    "xflip": true,
+    "resolution": 512,
+    "random_seed": 0
+  },
+  "num_gpus": 2,
+  "batch_size": 8,
+  "batch_gpu": 4,
+  "metrics": [
+    "fid50k_full"
+  ],
+  "total_kimg": 3000,
+  "kimg_per_tick": 4,
+  "image_snapshot_ticks": 100,
+  "network_snapshot_ticks": 100,
+  "random_seed": 0,
+  "ema_kimg": 2.5,
+  "G_reg_interval": 4,
+  "augment_kwargs": {
+    "class_name": "training.augment.AugmentPipe",
+    "xflip": 1,
+    "rotate90": 1,
+    "xint": 1,
+    "scale": 1,
+    "rotate": 1,
+    "aniso": 1,
+    "xfrac": 1,
+    "brightness": 1,
+    "contrast": 1,
+    "lumaflip": 1,
+    "hue": 1,
+    "saturation": 1
+  },
+  "ada_target": 0.6,
+  "run_dir": "~/training-runs/00030-stylegan2-00000-gpus2-batch8-gamma8"
+}
